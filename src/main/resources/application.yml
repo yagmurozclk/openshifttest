@@ -1,0 +1,25 @@
+#spring:
+#  application:
+#    name: msimsek-jpatest
+#  datasource:
+#    url: jdbc:oracle:thin:@192.168.99.100:49161:XE
+#    username: xxtest
+#    password: oracle
+#    driver-class-name: oracle.jdbc.OracleDriver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#
+#  jackson:
+#    serialization:
+#      write_dates_as_timestamps: false
+#logging:
+#  file: logs/reference.log
+
+server:
+  port: 8082
