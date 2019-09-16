@@ -6,10 +6,26 @@
     <artifactId>openshifttest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <java.version>8</java.version>
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <compiler.plugin.version>3.8.0</compiler.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <dockerfile-maven-plugin.version>1.2.0</dockerfile-maven-plugin.version>
+        <docker.image.name>${project.groupId}/${project.name}</docker.image.name>
+        <docker.directory>${basedir}/docker</docker.directory>
+        <docker.tag>${project.version}</docker.tag>
+        <jar-plugin.version>2.6</jar-plugin.version>
+        <clean.plugin.version>3.1.0</clean.plugin.version>
+        <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
+        <lombok.version>1.18.6</lombok.version>
+        <start-class>msimsek.Application</start-class>
     </properties>
 
     <dependencies>
@@ -99,6 +115,43 @@
 
 
     </repositories>
+<profiles>
+    <profile>
+        <id>docker</id>
+        <activation>
+            <property>
+                <name>dockerr</name>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                    <executions>
+                        <execution>
+                            <id>build-image</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <forceCreation>true</forceCreation>
+                        <imageName>${docker.image.name}</imageName>
+                        <tag>${docker.tag}</tag>
+                        <dockerDirectory>${docker.directory}</dockerDirectory>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+
+
+</profiles>
 
 
 </project>
